@@ -12,6 +12,27 @@ import java.util.Random;
  * edges.
  */
 public class ErdosRenyiGraph {
+    private int V;
+    private int E;
+    private Graph graph;
+
+    public Graph getGraph() {
+        return this.graph;
+    }
+
+    public ErdosRenyiGraph(int V, int E) {
+        this.V = V;
+        this.E = E;
+        this.graph = new Graph(this.V);
+        Random rand = new Random();
+        for (int i = 0; i < this.E; i++) {
+            int rand_int1 = rand.nextInt(this.V);
+            int rand_int2 = rand.nextInt(this.V);
+
+            graph.addEdge(rand_int1, rand_int2);
+        }
+    }
+
     /**
      * Unit tests the {@code ErdosRenyiGraph} data type.
      *
@@ -21,7 +42,7 @@ public class ErdosRenyiGraph {
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
         Graph graph = new Graph(V);
-        for (int i = 0; i < V; i++) {
+        for (int i = 0; i < E; i++) {
             Random rand = new Random();
   
             int rand_int1 = rand.nextInt(V);
