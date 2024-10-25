@@ -1,4 +1,4 @@
-package edu.umn.cdni;
+package edu.com.leipzig48;
 
 import edu.princeton.cs.algs4.Graph;
 import edu.princeton.cs.algs4.In;
