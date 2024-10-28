@@ -29,9 +29,9 @@ public class PathLengthsDFS {
                         long length = StreamSupport.stream(path.spliterator(), false).count();
                         totalLength += length;
                     }
-
-                    System.out.println("\t\tFraction: " + ((double) count / 128.0) + "; Average length: " + ((double) totalLength / 128.0));
                 }
+
+                System.out.println("\t\tFraction: " + ((double) count / 128.0) + "; Average length: " + ((double) totalLength / 128.0));
             }
         }
     }
