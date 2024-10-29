@@ -14,4 +14,4 @@ handles, labels = ax.get_legend_handles_labels()
 ax.legend(handles, labels)
 plt.legend(title="V")
 
-plt.savefig(f'src/main/python/erdos_renyi_graph/path_lengths_dfs/doc/img/ErdosRenyiGraph-PathLengthsDFS.png')
+plt.savefig(f'src/main/python/erdos_renyi_graph/path_lengths_dfs/doc/img/ErdosRenyiGraph-PathLengthsDFS-fraction-connected.png')
