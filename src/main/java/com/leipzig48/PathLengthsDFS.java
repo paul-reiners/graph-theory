@@ -11,15 +11,15 @@ import edu.princeton.cs.algs4.Graph;
 
 public class PathLengthsDFS {
     public static void main(String[] args) {
+        int upperV = Integer.parseInt(args[0]);
+        int upperE = Integer.parseInt(args[1]);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("data/out/erdos_renyi_graph/path_lengths_dfs/stats.csv", true))) {
             writer.write("V,E,fraction_connected,average_path_length");
             writer.newLine();
           
             Random rand = new Random();
-            for (int v = 1; v < 256; v++) {
-                System.out.println("v: " + v);
-                for (int e = 0; e < 256; e++) {
-                    System.out.println("\te: " + e);
+            for (int v = 1; v < upperV; v++) {
+                for (int e = 0; e < upperE; e += 2) {
                     int count = 0;
                     long totalLength = (long) 0;
                     for (int i = 0; i < 128; i++) {
@@ -38,7 +38,6 @@ public class PathLengthsDFS {
                         }
                     }
 
-                    System.out.println("\t\tFraction: " + ((double) count / 128.0) + "; Average length: " + ((double) totalLength / 128.0));
                     writer.write(String.format("%d,%d,%f,%f", v, e, ((double) count / 128.0), ((double) totalLength / 128.0)));
                     writer.newLine();
                 }
