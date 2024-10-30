@@ -7,4 +7,4 @@
 ## RandomGraph
 
 ![](./img/RandomSimpleGraph-PathLengthsDFS-fraction-connected.png)
-![](./img/ErdosRenyiGraph-PathLengthsDFS-average-path-length.png)
+![](./img/RandomSimpleGraph-PathLengthsDFS-average-path-length.png)
