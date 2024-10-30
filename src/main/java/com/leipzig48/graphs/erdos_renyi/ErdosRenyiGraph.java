@@ -1,4 +1,4 @@
-package com.leipzig48.graphs;
+package com.leipzig48.graphs.erdos_renyi;
 
 import edu.princeton.cs.algs4.Graph;
 import edu.princeton.cs.algs4.StdOut;

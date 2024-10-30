@@ -1,10 +1,7 @@
-package com.leipzig48.traits;
+package com.leipzig48.graphs.erdos_renyi;
 
 import java.util.Random;
 import java.util.stream.StreamSupport;
-
-import com.leipzig48.graphs.ErdosRenyiGraph;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

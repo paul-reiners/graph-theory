@@ -1,5 +1,7 @@
-package com.leipzig48.graphs;
+package com.leipzig48.graphs.random_simple;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.Graph;
@@ -24,7 +26,9 @@ public class RandomSimpleGraph {
     public RandomSimpleGraph(int V, int E) {
         if (V < 1) throw new IllegalArgumentException("Number of vertices must be at least 1.");
         if (E < 0) throw new IllegalArgumentException("Number of edges cannot be negative.");
-        if (E > V * (V - 1) / 2) {
+        
+        int maxPossibleEdges = V * (V - 1) / 2;
+        if (E > maxPossibleEdges) {
             throw new IllegalArgumentException("Too many edges for the number of vertices without parallel edges.");
         }
 
@@ -51,18 +55,15 @@ public class RandomSimpleGraph {
      * @return an array of two integers representing a valid edge pair
      */
     private int[] getRandomPair(boolean[][] matrix) {
-        int count = 0;
-        int randomEdgeIndex = rand.nextInt(V * (V - 1) / 2 - E);
-        
+        List<int[]> availablePairs = new ArrayList<>();
         for (int i = 0; i < V; i++) {
             for (int j = i + 1; j < V; j++) {
                 if (!matrix[i][j]) {
-                    if (count == randomEdgeIndex) return new int[] {i, j};
-                    count++;
+                    availablePairs.add(new int[] {i, j});
                 }
             }
         }
-        throw new IllegalStateException("No valid edge pair found.");
+        return availablePairs.get(rand.nextInt(availablePairs.size()));
     }
 
     /**
