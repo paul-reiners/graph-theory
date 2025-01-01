@@ -32,3 +32,9 @@ def selection(population, fitnesses, tournament_size=3):
         winner = max(tournament, key=lambda x: x[1])[0]
         selected.append(winner)
     return selected
+
+
+# Crossover function
+def crossover(parent1, parent2):
+    # TODO Implement
+    pass
