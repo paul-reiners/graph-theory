@@ -1,0 +1,2 @@
+population_size,generations,mutation_rate,execution_time
+100,20,0.01,
