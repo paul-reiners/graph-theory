@@ -1,5 +1,4 @@
 from pandas import read_csv
-import os
 
 dir = './data/in/vnc_matching_challenge'
 male_connectome_graph_df = read_csv("./data/in/vnc_matching_challenge/male_connectome_graph.csv.gz")
