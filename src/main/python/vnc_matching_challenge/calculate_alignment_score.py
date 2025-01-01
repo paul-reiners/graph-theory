@@ -1,13 +1,34 @@
-from pandas import read_csv
+import pandas as pd
 
-dir = './data/in/vnc_matching_challenge'
-male_connectome_graph_df = read_csv("./data/in/vnc_matching_challenge/male_connectome_graph.csv.gz")
-male_connectome_graph_df = male_connectome_graph_df
-male_edges = {(r[0], r[1]): int(r[2]) for _, r in male_connectome_graph_df.iterrows()}
-female_edges = {(r[0], r[1]): int(r[2]) for _, r in read_csv("./data/in/vnc_matching_challenge/female_connectome_graph.csv.gz").iterrows()}
-matching = {r[0]: r[1] for _, r in read_csv("./data/in/vnc_matching_challenge/vnc_matching_submission_benchmark_5154247.csv.gz").iterrows()}
-alignment = 0
-for male_nodes, edge_weight in male_edges.items():
-  female_nodes = (matching[male_nodes[0]], matching[male_nodes[1]])
-  alignment += min(edge_weight, female_edges.get(female_nodes, 0))
-print(f"{alignment=}")
+# Define file paths
+DATA_DIR = './data/in/vnc_matching_challenge'
+MALE_GRAPH_FILE = f"{DATA_DIR}/male_connectome_graph.csv.gz"
+FEMALE_GRAPH_FILE = f"{DATA_DIR}/female_connectome_graph.csv.gz"
+MATCHING_FILE = f"{DATA_DIR}/vnc_matching_submission_benchmark_5154247.csv.gz"
+
+def load_edges(file_path):
+    """Load edges from a CSV file into a dictionary."""
+    df = pd.read_csv(file_path)
+    return {(row[0], row[1]): int(row[2]) for _, row in df.iterrows()}
+
+def load_matching(file_path):
+    """Load matching data from a CSV file into a dictionary."""
+    df = pd.read_csv(file_path)
+    return {row[0]: row[1] for _, row in df.iterrows()}
+
+def calculate_alignment(male_edges, female_edges, matching):
+    """Calculate the alignment score based on edges and matching."""
+    alignment = 0
+    for (male_node1, male_node2), edge_weight in male_edges.items():
+        female_nodes = (matching.get(male_node1), matching.get(male_node2))
+        alignment += min(edge_weight, female_edges.get(female_nodes, 0))
+    return alignment
+
+# Main execution
+if __name__ == "__main__":
+    male_edges = load_edges(MALE_GRAPH_FILE)
+    female_edges = load_edges(FEMALE_GRAPH_FILE)
+    matching = load_matching(MATCHING_FILE)
+
+    alignment = calculate_alignment(male_edges, female_edges, matching)
+    print(f"{alignment=}")
