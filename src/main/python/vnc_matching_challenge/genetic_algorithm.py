@@ -41,7 +41,6 @@ def get_key_by_value(my_dict, value):
     return None
 
 
-
 # Crossover function
 def crossover(parent1, parent2):
     # Single - point crossover
@@ -62,3 +61,19 @@ def crossover(parent1, parent2):
     child2[key_2_2] = value_1
 
     return child1, child2
+
+
+# Mutation function
+def mutation(individual, mutation_rate):
+    individual_copy = copy.deepcopy(individual)
+    for i in range(len(individual_copy.keys())):
+        for j in range(i + 1, len(individual_copy.keys())):
+            if random.random() < mutation_rate:
+                key_1 = list(individual_copy.keys())[i]
+                value1 = individual_copy[key_1]
+                key_2 = list(individual_copy.keys())[j]
+                value2 = individual_copy[key_2]
+                individual_copy[key_1] = value2
+                individual_copy[key_2] = value1
+
+    return individual_copy
