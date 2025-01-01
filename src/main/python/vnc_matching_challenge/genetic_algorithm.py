@@ -63,17 +63,18 @@ def crossover(parent1, parent2):
     return child1, child2
 
 
-# Mutation function
 def mutation(individual, mutation_rate):
+    # Create a deep copy to avoid modifying the original
     individual_copy = copy.deepcopy(individual)
-    for i in range(len(individual_copy.keys())):
-        for j in range(i + 1, len(individual_copy.keys())):
+    keys = list(individual_copy.keys())
+    num_keys = len(keys)
+
+    # Iterate through all pairs of keys
+    for i in range(num_keys):
+        for j in range(i + 1, num_keys):
             if random.random() < mutation_rate:
-                key_1 = list(individual_copy.keys())[i]
-                value1 = individual_copy[key_1]
-                key_2 = list(individual_copy.keys())[j]
-                value2 = individual_copy[key_2]
-                individual_copy[key_1] = value2
-                individual_copy[key_2] = value1
+                # Swap the values of the two keys
+                key_1, key_2 = keys[i], keys[j]
+                individual_copy[key_1], individual_copy[key_2] = individual_copy[key_2], individual_copy[key_1]
 
     return individual_copy
