@@ -34,7 +34,31 @@ def selection(population, fitnesses, tournament_size=3):
     return selected
 
 
+def get_key_by_value(my_dict, value):
+    for key, val in my_dict.items():
+        if val == value:
+            return key
+    return None
+
+
+
 # Crossover function
 def crossover(parent1, parent2):
-    # TODO Implement
-    pass
+    # Single - point crossover
+    f_values = list(parent1.values())
+    random_values = random.sample(f_values, 2)
+    value_1 = random_values[0]
+    key_1_1 = get_key_by_value(parent1, value_1)
+    value_2 = random_values[1]
+    key_1_2 = get_key_by_value(parent1, value_2)
+    key_2_1 = get_key_by_value(parent2, value_1)
+    key_2_2 = get_key_by_value(parent2, value_2)
+
+    child1 = parent1.copy()
+    child1[key_1_1] = value_2
+    child1[key_1_2] = value_1
+    child2 = parent2.copy()
+    child2[key_2_1] = value_2
+    child2[key_2_2] = value_1
+
+    return child1, child2
