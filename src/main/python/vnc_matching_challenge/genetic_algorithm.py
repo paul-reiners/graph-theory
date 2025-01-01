@@ -22,3 +22,13 @@ def create_initial_population(size, v_m_list, v_f_list):
         individual = {v_m_list[i]: v_f_list_copy[i] for i in range(len(v_m_list))}
         population.append(individual)
     return population
+
+
+# Selection function using tournament selection
+def selection(population, fitnesses, tournament_size=3):
+    selected = []
+    for _ in range(len(population)):
+        tournament = random.sample(list(zip(population, fitnesses)), tournament_size)
+        winner = max(tournament, key=lambda x: x[1])[0]
+        selected.append(winner)
+    return selected
