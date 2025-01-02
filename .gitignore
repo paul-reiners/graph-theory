@@ -8564,3 +8564,6 @@ prod.env
 src/main/python/vnc_matching_challenge/__pycache__/__init__.cpython-311.pyc
 src/main/python/vnc_matching_challenge/__pycache__/calculate_alignment_score.cpython-311.pyc
 data/in/vnc_matching_challenge/vnc_matching_submission_reiners_0045820.csv
+data/in/vnc_matching_challenge/vnc_matching_submission_reiners_0046910.csv
+data/in/vnc_matching_challenge/vnc_matching_submission_reiners_0046911.csv
+data/in/vnc_matching_challenge/vnc_matching_submission_reiners_0047280.csv
