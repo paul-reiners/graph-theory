@@ -6,6 +6,7 @@ from prettytable import PrettyTable
 from functools import partial
 import pandas as pd
 import time
+import tqdm
 
 from src.main.python.vnc_matching_challenge.calculate_alignment_score import calculate_alignment, MATCHING_FILE, \
     load_matching, MALE_GRAPH_FILE, load_edges, FEMALE_GRAPH_FILE, DATA_DIR
@@ -102,7 +103,7 @@ def genetic_algorithm(population_size, generations, mutation_rate, v_m_list, v_f
     table = PrettyTable()
     table.field_names = ["Generation", "Fitness"]
 
-    for generation in range(generations):
+    for generation in tqdm.tqdm(range(generations), desc=" outer", position=0):
         fitnesses = [fitness_function(ind) for ind in population]
 
         # Store the best performer of the current generation
@@ -115,7 +116,7 @@ def genetic_algorithm(population_size, generations, mutation_rate, v_m_list, v_f
         population = selection(population, fitnesses)
 
         next_population = []
-        for i in range(0, len(population), 2):
+        for i in tqdm.tqdm(range(0, len(population), 2), desc=" inner loop", position=1, leave=False):
             parent1 = population[i]
             parent2 = population[i + 1]
 
@@ -135,27 +136,6 @@ def genetic_algorithm(population_size, generations, mutation_rate, v_m_list, v_f
     final_population = all_populations[-1]
     final_fitnesses = [fitness_function(ind) for ind in final_population]
 
-    axs[0].scatter(range(len(final_population)), [ind[0] for ind in final_population], color='blue', label='a')
-    axs[0].scatter([final_population.index(best_individual)], [best_individual[0]], color='cyan', s=100,
-                   label='Best Individual a')
-    axs[0].set_ylabel('a', color='blue')
-    axs[0].legend(loc='upper left')
-
-    axs[1].scatter(range(len(final_population)), [ind[1] for ind in final_population], color='green', label='b')
-    axs[1].scatter([final_population.index(best_individual)], [best_individual[1]], color='magenta', s=100,
-                   label='Best Individual b')
-    axs[1].set_ylabel('b', color='green')
-    axs[1].legend(loc='upper left')
-
-    axs[2].scatter(range(len(final_population)), [ind[2] for ind in final_population], color='red', label='c')
-    axs[2].scatter([final_population.index(best_individual)], [best_individual[2]], color='yellow', s=100,
-                   label='Best Individual c')
-    axs[2].set_ylabel('c', color='red')
-    axs[2].set_xlabel('Individual Index')
-    axs[2].legend(loc='upper left')
-
-    axs[0].set_title(f'Final Generation ({generations}) Population Solutions')
-
     # Plot the values of a, b, and c over generations
     generations_list = range(1, len(best_performers) + 1)
 
@@ -163,30 +143,13 @@ def genetic_algorithm(population_size, generations, mutation_rate, v_m_list, v_f
     best_fitness_values = [fit[1] for fit in best_performers]
     min_fitness_values = [min([fitness_function(ind) for ind in population]) for population in all_populations]
     max_fitness_values = [max([fitness_function(ind) for ind in population]) for population in all_populations]
-    fig, ax = plt.subplots()
-    ax.plot(generations_list, best_fitness_values, label='Best Fitness', color='black')
-    ax.fill_between(generations_list, min_fitness_values, max_fitness_values, color='gray', alpha=0.5,
-                    label='Fitness Range')
-    ax.set_xlabel('Generation')
-    ax.set_ylabel('Fitness')
-    ax.set_title('Fitness Over Generations')
-    ax.legend()
-
-    # Create a subplot for the colorbar
-    cax = fig.add_axes([0.92, 0.2, 0.02, 0.6])  # [left, bottom, width, height]
-    norm = plt.cm.colors.Normalize(vmin=0, vmax=generations)
-    sm = plt.cm.ScalarMappable(cmap='viridis', norm=norm)
-    sm.set_array([])
-    fig.colorbar(sm, ax=ax, cax=cax, orientation='vertical', label='Generation')
-
-    plt.show()
 
     return max(population, key=fitness_function)
 
 
 # Parameters for the genetic algorithm
-population_size = 100
-generations = 20
+population_size = 16
+generations = 8
 mutation_rate = 0.01
 
 # Run the genetic algorithm
