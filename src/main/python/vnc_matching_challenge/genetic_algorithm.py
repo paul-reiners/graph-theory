@@ -148,8 +148,8 @@ def genetic_algorithm(population_size, generations, mutation_rate, v_m_list, v_f
 
 
 # Parameters for the genetic algorithm
-population_size = 16
-generations = 8
+population_size = 2
+generations = 1
 mutation_rate = 0.01
 
 # Run the genetic algorithm
