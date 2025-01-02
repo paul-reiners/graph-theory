@@ -1,8 +1,8 @@
-population_size,generations,mutation_rate,execution_time
+population_size,generations,mutation_rate,execution_time,score
 100,20,0.01,
 64,20,0.01,
 64,16,0.01,
 32,16,0.01,
 32,8,0.01,
 16,8,0.01,
-4,1,0.01,
+4,1,0.01,1487.544177532196,45820

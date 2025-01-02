@@ -166,8 +166,11 @@ best_solution = (
         population_size, generations, mutation_rate, v_m_list, v_f_list))
 print(f"Best solution found: best_solution = {best_solution}")
 best_score = calculate_alignment(MALE_EDGES, FEMALE_EDGES, best_solution)
-df = pd.DataFrame.from_dict(best_solution)
-df.to_csv(f"{DATA_DIR}/vnc_matching_submission_reiners_{str(best_score).zfill(7)}.csv", index=False)
+
+with open(f"{DATA_DIR}/vnc_matching_submission_reiners_{str(best_score).zfill(7)}.csv", "w") as file:
+    file.write('Male Node ID,Female Node ID' + '\n')
+    for key, value in best_solution.items():
+        file.write(f'{key},{value}\n')
 
 end_time = time.time()
 execution_time = end_time - start_time
