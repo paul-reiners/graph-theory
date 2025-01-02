@@ -5,4 +5,4 @@ population_size,generations,mutation_rate,execution_time
 32,16,0.01,
 32,8,0.01,
 16,8,0.01,
-2,1,0.01,
+4,1,0.01,

@@ -8559,3 +8559,7 @@ replay_pid*
 .venv/share/man/man1/ttx.1
 data/in/vnc_matching_challenge/vnc_matching_submission_benchmark_5154247.csv
 /.idea/.gitignore
+dev.env
+prod.env
+src/main/python/vnc_matching_challenge/__pycache__/__init__.cpython-311.pyc
+src/main/python/vnc_matching_challenge/__pycache__/calculate_alignment_score.cpython-311.pyc

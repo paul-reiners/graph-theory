@@ -8,7 +8,7 @@ import pandas as pd
 import time
 import tqdm
 
-from src.main.python.vnc_matching_challenge.calculate_alignment_score import calculate_alignment, MATCHING_FILE, \
+from vnc_matching_challenge.calculate_alignment_score import calculate_alignment, MATCHING_FILE, \
     load_matching, MALE_GRAPH_FILE, load_edges, FEMALE_GRAPH_FILE, DATA_DIR
 
 start_time = time.time()
@@ -94,8 +94,6 @@ def mutation(individual, mutation_rate):
 def genetic_algorithm(population_size, generations, mutation_rate, v_m_list, v_f_list):
     population = create_initial_population(population_size, v_m_list, v_f_list)
 
-    # Prepare for plotting
-    fig, axs = plt.subplots(3, 1, figsize=(12, 18))  # 3 rows, 1 column for subplots
     best_performers = []
     all_populations = []
 
@@ -135,20 +133,25 @@ def genetic_algorithm(population_size, generations, mutation_rate, v_m_list, v_f
     # Plot the population of one generation (last generation)
     final_population = all_populations[-1]
     final_fitnesses = [fitness_function(ind) for ind in final_population]
+    print(f'final_fitnesses: {final_fitnesses}')
 
     # Plot the values of a, b, and c over generations
     generations_list = range(1, len(best_performers) + 1)
+    print(f'generations_list: {generations_list}')
 
     # Plot the fitness values over generations
     best_fitness_values = [fit[1] for fit in best_performers]
+    print(f'best_fitness_values: {best_fitness_values}')
     min_fitness_values = [min([fitness_function(ind) for ind in population]) for population in all_populations]
+    print(f'min_fitness_values: {min_fitness_values}')
     max_fitness_values = [max([fitness_function(ind) for ind in population]) for population in all_populations]
+    print(f'max_fitness_values: {max_fitness_values}')
 
     return max(population, key=fitness_function)
 
 
 # Parameters for the genetic algorithm
-population_size = 2
+population_size = 4
 generations = 1
 mutation_rate = 0.01
 
