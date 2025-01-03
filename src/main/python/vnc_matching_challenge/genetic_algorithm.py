@@ -18,8 +18,8 @@ def fitness_function(matching):
 
 # Create the initial population
 def create_initial_population(size, v_m_list, v_f_list):
-    population = [matching]
-    for _ in range(size - 1):
+    population = []
+    for _ in range(size):
         v_f_list_copy = copy.deepcopy(v_f_list)
         random.shuffle(v_f_list_copy)
         individual = {v_m_list[i]: v_f_list_copy[i] for i in range(len(v_m_list))}
