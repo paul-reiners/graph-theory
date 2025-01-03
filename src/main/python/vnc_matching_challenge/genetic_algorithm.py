@@ -12,11 +12,6 @@ import collections
 from vnc_matching_challenge.calculate_alignment_score import calculate_alignment, MATCHING_FILE, \
     load_matching, MALE_GRAPH_FILE, load_edges, FEMALE_GRAPH_FILE, DATA_DIR
 
-start_time = time.time()
-
-MALE_EDGES = load_edges(MALE_GRAPH_FILE)
-FEMALE_EDGES = load_edges(FEMALE_GRAPH_FILE)
-
 
 # Define the fitness function with the objective of aligning the
 # connectivity between the two graph as closely as possible.
@@ -146,33 +141,38 @@ def genetic_algorithm(population_size, generations, mutation_rate, v_m_list, v_f
 
     return max(population, key=fitness_function)
 
-
-# Parameters for the genetic algorithm
-population_size = 100
-generations = 20
-mutation_rate = 0.01
-
-# Run the genetic algorithm
-matching = load_matching(MATCHING_FILE)
-matching = collections.OrderedDict(sorted(matching.copy().items()))
-v_m_list = list(matching.keys())
-v_m_list.sort()
-v_f_list = list(matching.values())
-v_f_list.sort()
-best_solution = (
-    genetic_algorithm(
-        population_size, generations, mutation_rate, v_m_list, v_f_list))
-best_score = calculate_alignment(MALE_EDGES, FEMALE_EDGES, best_solution)
-print(f"Best score found: best_score = {best_score}")
-
 def print_best_solution_file(best_solution, best_score):
     with open(f"{DATA_DIR}/vnc_matching_submission_reiners_{str(best_score).zfill(7)}.csv", "w") as file:
         file.write('Male Node ID,Female Node ID' + '\n')
         for key, value in best_solution.items():
             file.write(f'{key},{value}\n')
 
-print_best_solution_file(best_solution, best_score)
+if __name__ == '__main__':
+    start_time = time.time()
 
-end_time = time.time()
-execution_time = end_time - start_time
-print("Execution time:", execution_time)
+    MALE_EDGES = load_edges(MALE_GRAPH_FILE)
+    FEMALE_EDGES = load_edges(FEMALE_GRAPH_FILE)
+
+    # Parameters for the genetic algorithm
+    population_size = 4
+    generations = 2
+    mutation_rate = 0.01
+
+    # Run the genetic algorithm
+    matching = load_matching(MATCHING_FILE)
+    matching = collections.OrderedDict(sorted(matching.copy().items()))
+    v_m_list = list(matching.keys())
+    v_m_list.sort()
+    v_f_list = list(matching.values())
+    v_f_list.sort()
+    best_solution = (
+        genetic_algorithm(
+            population_size, generations, mutation_rate, v_m_list, v_f_list))
+    best_score = calculate_alignment(MALE_EDGES, FEMALE_EDGES, best_solution)
+    print(f"Best score found: best_score = {best_score}")
+
+    print_best_solution_file(best_solution, best_score)
+
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print("Execution time:", execution_time)
