@@ -1,13 +1,10 @@
+import collections
 import copy
 import random
-import matplotlib.pyplot as plt
-import numpy as np
-from prettytable import PrettyTable
-from functools import partial
-import pandas as pd
 import time
+
 import tqdm
-import collections
+from prettytable import PrettyTable
 
 from vnc_matching_challenge.calculate_alignment_score import calculate_alignment, MATCHING_FILE, \
     load_matching, MALE_GRAPH_FILE, load_edges, FEMALE_GRAPH_FILE, DATA_DIR
@@ -21,8 +18,7 @@ def fitness_function(matching):
 
 # Create the initial population
 def create_initial_population(size, v_m_list, v_f_list):
-    population = []
-    population.append(matching)
+    population = [matching]
     for _ in range(size - 1):
         v_f_list_copy = copy.deepcopy(v_f_list)
         random.shuffle(v_f_list_copy)
@@ -141,11 +137,13 @@ def genetic_algorithm(population_size, generations, mutation_rate, v_m_list, v_f
 
     return max(population, key=fitness_function)
 
+
 def print_best_solution_file(best_solution, best_score):
     with open(f"{DATA_DIR}/vnc_matching_submission_reiners_{str(best_score).zfill(7)}.csv", "w") as file:
         file.write('Male Node ID,Female Node ID' + '\n')
         for key, value in best_solution.items():
             file.write(f'{key},{value}\n')
+
 
 if __name__ == '__main__':
     start_time = time.time()
