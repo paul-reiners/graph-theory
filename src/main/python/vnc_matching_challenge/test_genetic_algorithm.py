@@ -1,11 +1,13 @@
 import random
 from unittest import TestCase
+import unittest
 
 from vnc_matching_challenge.genetic_algorithm import crossover, mutation
 
 
 class Test(TestCase):
     def test_crossover(self):
+        random.seed(10)
         parent1 = {'m1': 'f8',
                    'm2': 'f6',
                    'm3': 'f4',
@@ -57,3 +59,7 @@ class Test(TestCase):
         self.assertEquals(mutated_individual['m7'], 'f5')
         self.assertEquals(mutated_individual['m8'], 'f7')
         self.assertEquals(len(set(individual.values())), len(set(mutated_individual.values())))
+
+if __name__ == '__main__':
+    unittest.main()
+    
