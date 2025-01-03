@@ -7,6 +7,7 @@ from functools import partial
 import pandas as pd
 import time
 import tqdm
+import collections
 
 from vnc_matching_challenge.calculate_alignment_score import calculate_alignment, MATCHING_FILE, \
     load_matching, MALE_GRAPH_FILE, load_edges, FEMALE_GRAPH_FILE, DATA_DIR
@@ -26,10 +27,12 @@ def fitness_function(matching):
 # Create the initial population
 def create_initial_population(size, v_m_list, v_f_list):
     population = []
-    for _ in range(size):
+    population.append(matching)
+    for _ in range(size - 1):
         v_f_list_copy = copy.deepcopy(v_f_list)
         random.shuffle(v_f_list_copy)
         individual = {v_m_list[i]: v_f_list_copy[i] for i in range(len(v_m_list))}
+        individual = collections.OrderedDict(sorted(individual.copy().items()))
         population.append(individual)
     return population
 
@@ -157,6 +160,7 @@ mutation_rate = 0.01
 
 # Run the genetic algorithm
 matching = load_matching(MATCHING_FILE)
+matching = collections.OrderedDict(sorted(matching.copy().items()))
 v_m_list = list(matching.keys())
 v_m_list.sort()
 v_f_list = list(matching.values())
