@@ -46,7 +46,7 @@ def get_key_by_value(my_dict, value):
 
 
 # Crossover function
-def crossover(parent1, parent2):
+def crossover_single_step(parent1, parent2):
     f_values = list(parent1.values())
     random_values = random.sample(f_values, int(round(len(f_values) / 2)))
     child1 = parent1.copy()
@@ -57,6 +57,15 @@ def crossover(parent1, parent2):
         key_2 = get_key_by_value(parent2, random_value)
         child1[key_2] = random_value
         child2[key_1] = random_value
+
+    return child1, child2
+
+def crossover(parent1, parent2):
+    crossover_key = random.choice(list(parent1.keys()))  # Randomly select a crossover key
+    child1 = {key: parent1[key] for key in parent1 if key < crossover_key}
+    child1.update({key: parent2[key] for key in parent2 if key >= crossover_key})
+    child2 = {key: parent2[key] for key in parent2 if key < crossover_key}
+    child2.update({key: parent1[key] for key in parent1 if key >= crossover_key})
 
     return child1, child2
 

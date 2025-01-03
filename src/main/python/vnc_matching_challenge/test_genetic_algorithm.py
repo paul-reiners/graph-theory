@@ -29,12 +29,12 @@ class Test(TestCase):
         for key in child1.keys():
             if child1[key] != parent1[key]:
                 child1_diff_count += 1
-        self.assertEquals(2, child1_diff_count)
+        self.assertEquals(7, child1_diff_count)
         child2_diff_count = 0
         for key in child2.keys():
             if child2[key] != parent2[key]:
                 child2_diff_count += 1
-        self.assertEquals(2, child2_diff_count)
+        self.assertEquals(7, child2_diff_count)
         self.assertEquals(len(set(parent1.values())), len(set(child1.values())))
         self.assertEquals(len(set(parent2.values())), len(set(child2.values())))
 
