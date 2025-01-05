@@ -1,3 +1,5 @@
+# https://ai.stackexchange.com/q/47643/50751
+
 import collections
 import copy
 import random
@@ -9,6 +11,13 @@ from prettytable import PrettyTable
 from vnc_matching_challenge.calculate_alignment_score import calculate_alignment, MATCHING_FILE, \
     load_matching, MALE_GRAPH_FILE, load_edges, FEMALE_GRAPH_FILE, DATA_DIR
 
+# Important Considerations:
+# Key Ordering:
+# Since dictionaries are unordered, you might need to consider how to handle key comparisons when selecting the crossover point. You can either sort the keys beforehand or use a random selection method that is not strictly based on key ordering.
+# Handling Missing Keys:
+# If the crossover point falls on a key that doesn't exist in one of the parents, you can choose to either ignore that key or handle it with a default value.
+# Crossover Probability:
+# You can introduce a crossover probability to determine whether to perform crossover on a given pair of parents in each generation.
 
 # Define the fitness function with the objective of aligning the
 # connectivity between the two graph as closely as possible.
@@ -161,8 +170,8 @@ if __name__ == '__main__':
     FEMALE_EDGES = load_edges(FEMALE_GRAPH_FILE)
 
     # Parameters for the genetic algorithm
-    population_size = 4
-    generations = 2
+    population_size = 100
+    generations = 20
     mutation_rate = 0.01
 
     # Run the genetic algorithm
