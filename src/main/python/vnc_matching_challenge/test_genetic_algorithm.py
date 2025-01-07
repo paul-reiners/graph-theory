@@ -2,7 +2,7 @@ import random
 from unittest import TestCase
 import unittest
 
-from vnc_matching_challenge.genetic_algorithm import crossover, mutation
+from vnc_matching_challenge.genetic_algorithm import crossover, mutation, uniform_crossover
 
 
 class Test(TestCase):
@@ -60,6 +60,29 @@ class Test(TestCase):
         self.assertEquals(mutated_individual['m8'], 'f7')
         self.assertEquals(len(set(individual.values())), len(set(mutated_individual.values())))
 
+    def test_uniform_crossover(self):
+        # This test fails.  1:1 is not preserved by the uniform crossover function as defined.
+        random.seed(10)
+        parent1 = {'m1': 'f8',
+                   'm2': 'f6',
+                   'm3': 'f4',
+                   'm4': 'f1',
+                   'm5': 'f3',
+                   'm6': 'f2',
+                   'm7': 'f7',
+                   'm8': 'f5'}
+        parent2 = {'m1': 'f7',
+                   'm2': 'f3',
+                   'm3': 'f4',
+                   'm4': 'f5',
+                   'm5': 'f2',
+                   'm6': 'f6',
+                   'm7': 'f1',
+                   'm8': 'f8'}
+        child1, child2 = uniform_crossover(parent1, parent2)
+        self.assertEquals(len(set(parent1.values())), len(set(child1.values())))
+        self.assertEquals(len(set(parent2.values())), len(set(child2.values())))
+
+
 if __name__ == '__main__':
     unittest.main()
-    

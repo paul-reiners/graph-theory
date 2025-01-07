@@ -163,6 +163,25 @@ def print_best_solution_file(best_solution, best_score):
             file.write(f'{key},{value}\n')
 
 
+def uniform_crossover(parent1, parent2):
+    # Author: cinch
+    if len(parent1) != len(parent2):
+        raise ValueError("Parents must have the same number of genes.")
+
+    child1 = {}
+    child2 = {}
+
+    for key in parent1.keys():
+        if random.randint(0, 1) == 0:
+            child1[key] = parent1[key]
+            child2[key] = parent2[key]
+        else:
+            child1[key] = parent2[key]
+            child2[key] = parent1[key]
+
+    return child1, child2
+
+
 if __name__ == '__main__':
     start_time = time.time()
 
