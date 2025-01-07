@@ -8,7 +8,7 @@ import time
 import tqdm
 from prettytable import PrettyTable
 
-from vnc_matching_challenge.calculate_alignment_score import calculate_alignment, MATCHING_FILE, \
+from modules.calculate_alignment_score import calculate_alignment, MATCHING_FILE, \
     load_matching, MALE_GRAPH_FILE, load_edges, FEMALE_GRAPH_FILE, DATA_DIR
 
 # Important Considerations:

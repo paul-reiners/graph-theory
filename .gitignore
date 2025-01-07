@@ -8577,3 +8577,5 @@ src/main/python/vnc_matching_challenge/__pycache__/genetic_algorithm.cpython-311
 /data/in/vnc_matching_challenge/vnc_matching_submission_reiners_0048294.csv
 /data/in/vnc_matching_challenge/vnc_matching_submission_reiners_0048868.csv
 /data/in/vnc_matching_challenge/vnc_matching_submission_reiners_0052756.csv
+modules/__pycache__/__init__.cpython-311.pyc
+modules/__pycache__/calculate_alignment_score.cpython-311.pyc
