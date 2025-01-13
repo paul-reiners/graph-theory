@@ -6,8 +6,8 @@ import time
 import tqdm
 from prettytable import PrettyTable
 
-from modules.calculate_alignment_score import calculate_alignment, MATCHING_FILE, \
-    load_matching, MALE_GRAPH_FILE, load_edges, FEMALE_GRAPH_FILE, DATA_DIR
+from calculate_alignment_score import DATA_DIR, FEMALE_GRAPH_FILE, MALE_GRAPH_FILE, MATCHING_FILE, calculate_alignment, load_edges, load_matching
+from util import create_initial_population
 
 # Important Considerations:
 # Key Ordering:
@@ -15,24 +15,13 @@ from modules.calculate_alignment_score import calculate_alignment, MATCHING_FILE
 # Handling Missing Keys:
 # If the crossover point falls on a key that doesn't exist in one of the parents, you can choose to either ignore that key or handle it with a default value.
 # Crossover Probability:
-# You can introduce a crossover probability to determine whether to perform crossover on a given pair of parents in each generation.
+# You can introduce a crossover proba
+# bility to determine whether to perform crossover on a given pair of parents in each generation.
 
 # Define the fitness function with the objective of aligning the
 # connectivity between the two graph as closely as possible.
 def fitness_function(matching):
     return calculate_alignment(MALE_EDGES, FEMALE_EDGES, matching)
-
-
-# Create the initial population
-def create_initial_population(size, v_m_list, v_f_list):
-    population = []
-    for _ in range(size):
-        v_f_list_copy = copy.deepcopy(v_f_list)
-        random.shuffle(v_f_list_copy)
-        individual = {v_m_list[i]: v_f_list_copy[i] for i in range(len(v_m_list))}
-        individual = collections.OrderedDict(sorted(individual.copy().items()))
-        population.append(individual)
-    return population
 
 
 # Selection function using tournament selection
@@ -170,7 +159,7 @@ if __name__ == '__main__':
     FEMALE_EDGES = load_edges(FEMALE_GRAPH_FILE)
 
     # Parameters for the genetic algorithm
-    population_size = 100
+    population_size = 200
     generations = 20
     mutation_rate = 0.01
 

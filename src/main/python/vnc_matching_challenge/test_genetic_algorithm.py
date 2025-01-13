@@ -2,7 +2,7 @@ import random
 from unittest import TestCase
 import unittest
 
-from vnc_matching_challenge.genetic_algorithm import crossover, mutation, uniform_crossover
+from genetic_algorithm import crossover, mutation, uniform_crossover
 
 
 class Test(TestCase):
