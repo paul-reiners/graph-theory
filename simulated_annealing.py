@@ -4,10 +4,16 @@ import numpy as np
 import math
 
 from calculate_alignment_score import FEMALE_GRAPH_FILE, MALE_GRAPH_FILE, MATCHING_FILE, calculate_alignment, load_edges, load_matching
-from util import create_individual, create_initial_population
+from util import create_individual
 
-INFINITY = 100
+INFINITY = 1000
 
+T_initial = 1
+
+# This is the most common choice, where the temperature decreases exponentially 
+# with the number of iterations using a cooling factor (often between 0.9 and 
+# 0.99). 
+cooling_factor = 0.99
 
 def make_node() -> dict:
     """
@@ -42,9 +48,12 @@ def randomly_selected_successor(current: dict, swap_prob: float = 0.05) -> dict:
 
 def schedule(t: int) -> float:
     """
-    Define a cooling schedule for simulated annealing.
+    Define a cooling schedule for simulated annealing.  Exponential cooling.
     """
-    return max(1e-10, 100 - t)  # Avoid zero or negative temperatures
+    new_temp = max(1e-10, T_initial * (cooling_factor) ** t)  # Avoid zero or negative temperatures
+    print(f"Current Temperature: {new_temp}")
+
+    return new_temp
 
 
 def simulated_annealing(schedule) -> tuple:
@@ -78,11 +87,11 @@ def simulated_annealing(schedule) -> tuple:
 
 
 if __name__ == "__main__":
-    schedule_fn = lambda t: max(1e-10, 100 - t)  # Ensure a non-zero temperature
+    schedule_fn = lambda t: max(1e-10, schedule(t))  # Ensure a non-zero temperature
     best_matching, best_alignment = simulated_annealing(schedule_fn)
 
     if best_matching is not None:
-        print(f"Best Matching: {best_matching}")
+        # print(f"Best Matching: {best_matching}")
         print(f"Best Alignment Score: {best_alignment}")
     else:
         print("Failed to find a solution.")

@@ -1,0 +1,3 @@
+cooling_factor,T_initial,swap_prob,temperature_function,execution_time,score
+0.9,1,0.05,exponential-cooling,,49365
+0.99,1,0.05,exponential-cooling,,49173
