@@ -3,8 +3,31 @@ import pandas as pd
 # Define file paths
 DATA_DIR = '/users/9/reine097/projects/graph-theory/data/in/vnc_matching_challenge'
 MALE_GRAPH_FILE = f"{DATA_DIR}/male_connectome_graph.csv.gz"
+MALE_EDGES = None
 FEMALE_GRAPH_FILE = f"{DATA_DIR}/female_connectome_graph.csv.gz"
+FEMALE_EDGES = None
 MATCHING_FILE = f"{DATA_DIR}/vnc_matching_submission_benchmark_5154247.csv.gz"
+MATCHING_EDGES = None
+
+
+def get_male_edges():
+    if MALE_EDGES == None:
+        MALE_EDGES = load_edges(MALE_GRAPH_FILE)
+    
+    return MALE_EDGES
+
+def get_matching_edges():
+    if MATCHING_EDGES == None:
+        MATCHING_EDGES = load_edges(MATCHING_FILE)
+
+    return MATCHING_EDGES
+
+
+def get_female_edges():
+    if FEMALE_EDGES == None:
+        FEMALE_EDGES = load_edges(FEMALE_GRAPH_FILE)
+    
+    return FEMALE_EDGES
 
 
 def load_edges(file_path):

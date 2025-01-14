@@ -6,10 +6,6 @@ import math
 from calculate_alignment_score import FEMALE_GRAPH_FILE, MALE_GRAPH_FILE, MATCHING_FILE, calculate_alignment, load_edges, load_matching
 from util import create_initial_population
 
-male_edges = load_edges(MALE_GRAPH_FILE)
-female_edges = load_edges(FEMALE_GRAPH_FILE)
-matching = load_matching(MATCHING_FILE)
-
 INFINITY = 1000000
 POPULATION_SIZE = 200
  
@@ -26,25 +22,23 @@ def make_node():
 
     return initial_state
 
-def randomly_selected_successor(current, T):
-    current_copy = np.copy(current)
-    prob = T / INFINITY
+def randomly_selected_successor(current):
+    current_copy = current.copy()
+    prob = 0.05
+    print(type(current_copy))
     for i in range(len(current_copy) - 1):
         for j in range(i + 1, len(current_copy)):
             key_list = list(current.keys())
-            if random.randon() < prob:
+            if random.random() < prob:
                 temp_key = key_list[i]
                 temp_val = current_copy[temp_key]
-                key_1 = current_copy[key_list[i]]
-                key_2 = current_copy[key_list[2]]
+                key_1 = key_list[i]
+                key_2 = key_list[j]
                 val_2 = current_copy[key_2]
                 current_copy[key_1] = val_2
                 current_copy[key_2] = temp_val
 
     return current_copy
-
-            
-
 
 
 def schedule(t):
@@ -56,13 +50,18 @@ def simulated_annealing(problem, schedule):  # returns a solution state
     #   problem, a problem
     #   schedule, a mapping from time to "temperature"
 
+    male_edges = load_edges(MALE_GRAPH_FILE)
+    female_edges = load_edges(FEMALE_GRAPH_FILE)
+
     current = make_node()
     for t in range(INFINITY):
         T = schedule(t)
         if T == 0:
             return current
         next = randomly_selected_successor(current, T)
-        delta_e = next.value - current.value
+        delta_e = \
+            calculate_alignment(male_edges, female_edges, next) - \
+            calculate_alignment(male_edges, female_edges, current)
         if delta_e > 0: 
             current = next
         else:
