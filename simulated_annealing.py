@@ -6,7 +6,7 @@ import math
 from calculate_alignment_score import FEMALE_GRAPH_FILE, MALE_GRAPH_FILE, MATCHING_FILE, calculate_alignment, load_edges, load_matching
 from util import create_individual
 
-INFINITY = 1000
+INFINITY = 10000
 
 T_initial = 1
 
@@ -23,14 +23,12 @@ def make_node() -> dict:
     try:
         matching = load_matching(MATCHING_FILE)
         matching = collections.OrderedDict(sorted(matching.items()))
-        male_nodes = sorted(matching.keys())
-        female_nodes = sorted(matching.values())
-        return create_individual(male_nodes, female_nodes)
+        return matching
     except Exception as e:
         raise RuntimeError(f"Error creating initial state: {e}")
 
 
-def randomly_selected_successor(current: dict, swap_prob: float = 0.05) -> dict:
+def randomly_selected_successor(current: dict, swap_prob: float = 0.2) -> dict:
     """
     Generate a successor state by swapping pairs of matches with a given probability.
     """
