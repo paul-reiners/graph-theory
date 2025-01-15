@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Define file paths
-DATA_DIR = '/users/9/reine097/projects/graph-theory/data/in/vnc_matching_challenge'
+DATA_DIR = './data/in/vnc_matching_challenge'
 MALE_GRAPH_FILE = f"{DATA_DIR}/male_connectome_graph.csv.gz"
 MALE_EDGES = None
 FEMALE_GRAPH_FILE = f"{DATA_DIR}/female_connectome_graph.csv.gz"
